@@ -259,6 +259,8 @@ header{position:fixed;top:0;left:0;right:0;z-index:60;height:58px;display:flex;a
   padding:10px max(16px, env(safe-area-inset-right, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap;text-align:center}
 .pv-bar b{background:#3a2c00;color:#ffd84d;padding:2px 10px;border-radius:999px;font-size:11px;letter-spacing:.1em}
 .pv-sp{margin-top:14px;display:inline-block;background:#ffd84d;color:#3a2c00;font:700 12px var(--jp);padding:4px 14px;border-radius:999px;animation:fade 1s .8s both}
+.pv-mode{position:fixed;top:66px;left:50%;translate:-50% 0;z-index:255;background:#e00000;color:#fff;font-weight:700;font-size:13px;padding:8px 18px;border-radius:999px;box-shadow:0 6px 18px rgba(0,0,0,.25);display:flex;gap:14px;align-items:center;max-width:calc(100vw - 32px);flex-wrap:wrap;justify-content:center}
+.pv-mode a{color:#fff;text-decoration:underline}
 footer{padding-bottom:90px!important}
 footer{background:var(--navy) var(--tri);color:#fff;padding:46px 5vw 34px;text-align:center}
 footer .flogo{display:inline-flex;align-items:center;gap:10px;font:900 18px var(--jpb);letter-spacing:.14em}
@@ -370,8 +372,8 @@ dialog[open] .dl-box{animation:dlIn .3s ease-out}
         <div class="pcard reveal">
           <h1 class="name">神 白狐</h1>
           <div class="roman">Kami Byakko</div>
-          <p class="quote">「人間世界に舞い降りた白狐、神白狐やで！」</p>
-          <p class="desc">関西弁でしゃべる個人勢Vtuber。年齢は…ナイショ。<br>ゲームに雑談、いろんなことに挑戦していくで。みんなの「信仰」が力になるから、よろしくな！ 挨拶は「おつこん」。</p>
+          <p class="quote" id="pQuote"></p>
+          <p class="desc" id="pDesc"></p>
           <div class="pbtns">
             <a id="pYT" target="_blank" rel="noopener"><svg class="ic"><use href="#i-yt"/></svg>YouTube</a>
             <a id="pX" target="_blank" rel="noopener"><svg class="ic"><use href="#i-x"/></svg>X</a>
@@ -447,7 +449,7 @@ dialog[open] .dl-box{animation:dlIn .3s ease-out}
 </footer>
 
 
-<script type="application/json" id="site-data">{"avatar":"https://pbs.twimg.com/profile_images/2096912593457987584/O8nyAKtN_400x400.jpg","banner":"https://pbs.twimg.com/profile_banners/1989305840114032640/1788249063/1500x500","news":[{"id":"n3","date":"2026-11-04","tag":"THANKS","text":"フォロワー1600人ありがとう！これからもよろしくだよ","url":"https://x.com/kamibyakko06","thumb":""},{"id":"n2","date":"2026-11-04","tag":"INFO","text":"公式サイトを公開しました！","url":"#top","thumb":""},{"id":"n1","date":"2026-10-30","tag":"GOODS","text":"ときぱれ！VOL.25 限定オンラインくじ開催中（〜11/7 23:59）大正ロマンがテーマ！","url":"https://roll.tokyo/e/kamibyakko06","thumb":""}],"schedule":[{"id":"s1","date":"2026-11-02","time":"21:00","mins":60,"title":"雑談配信","detail":"今日あったこととか、ゆるっとしゃべるで！コメントたくさん拾います。","url":"","tags":["#白狐の信仰"],"thumb":""},{"id":"s2","date":"2026-11-04","time":"20:00","mins":120,"title":"ゲーム配信：ホラー","detail":"怖いの苦手やけど頑張る…！叫んでも笑わんといてな。","url":"","tags":["#白狐の信仰"],"thumb":""},{"id":"s3","date":"2026-11-05","time":"21:00","mins":90,"title":"歌枠","detail":"リクエストも受け付けるで！マシュマロに送ってな。","url":"","tags":["#白狐の信仰"],"thumb":""},{"id":"s4","date":"2026-11-06","time":"22:00","mins":120,"title":"参加型ゲーム","detail":"みんなで一緒に遊ぼ！参加方法は配信の概要欄を見てな。","url":"","tags":["#白狐の信仰"],"thumb":""},{"id":"s5","date":"2026-11-07","time":"20:00","mins":60,"title":"マシュマロ雑談","detail":"届いたマシュマロを読んでいくで！お題も募集中。","url":"","tags":["#白狐の信仰"],"thumb":""}]}</script>
+<script type="application/json" id="site-data">{"avatar":"https://pbs.twimg.com/profile_images/2096912593457987584/O8nyAKtN_400x400.jpg","banner":"https://pbs.twimg.com/profile_banners/1989305840114032640/1788249063/1500x500","news":[{"id":"n3","date":"2026-11-04","tag":"THANKS","text":"フォロワー1600人ありがとう！これからもよろしくだよ","url":"https://x.com/kamibyakko06","thumb":""},{"id":"n2","date":"2026-11-04","tag":"INFO","text":"公式サイトを公開しました！","url":"#top","thumb":""},{"id":"n1","date":"2026-10-30","tag":"GOODS","text":"ときぱれ！VOL.25 限定オンラインくじ開催中（〜11/7 23:59）大正ロマンがテーマ！","url":"https://roll.tokyo/e/kamibyakko06","thumb":""}],"schedule":[{"id":"s1","date":"2026-11-02","time":"21:00","mins":60,"title":"雑談配信","detail":"今日あったこととか、ゆるっとしゃべるで！コメントたくさん拾います。","url":"","tags":["#白狐の信仰"],"thumb":""},{"id":"s2","date":"2026-11-04","time":"20:00","mins":120,"title":"ゲーム配信：ホラー","detail":"怖いの苦手やけど頑張る…！叫んでも笑わんといてな。","url":"","tags":["#白狐の信仰"],"thumb":""},{"id":"s3","date":"2026-11-05","time":"21:00","mins":90,"title":"歌枠","detail":"リクエストも受け付けるで！マシュマロに送ってな。","url":"","tags":["#白狐の信仰"],"thumb":""},{"id":"s4","date":"2026-11-06","time":"22:00","mins":120,"title":"参加型ゲーム","detail":"みんなで一緒に遊ぼ！参加方法は配信の概要欄を見てな。","url":"","tags":["#白狐の信仰"],"thumb":""},{"id":"s5","date":"2026-11-07","time":"20:00","mins":60,"title":"マシュマロ雑談","detail":"届いたマシュマロを読んでいくで！お題も募集中。","url":"","tags":["#白狐の信仰"],"thumb":""}],"topics":[{"id":"t1","lbl":"DEBUT","title":"神白狐\nデビュー準備中！","text":"人間世界に舞い降りた白狐、まもなく始動。","url":"https://x.com/kamibyakko06","color":"sky","big":"COMING SOON","pic":true,"img":""},{"id":"t2","lbl":"GOODS","title":"ときぱれ！VOL.25\n限定オンラインくじ","text":"10/30(金)19:00〜11/7(土)23:59　大正ロマンがテーマ！","url":"https://roll.tokyo/e/kamibyakko06","color":"navy","big":"GOODS","pic":false,"img":""},{"id":"t3","lbl":"THANKS","title":"フォロワー\n1600人ありがとう！","text":"これからもよろしくだよ。","url":"https://x.com/kamibyakko06","color":"light","big":"1600","pic":true,"img":""}],"profile":{"quote":"人間世界に舞い降りた白狐、神白狐やで！","desc":"関西弁でしゃべる個人勢Vtuber。年齢は…ナイショ。\nゲームに雑談、いろんなことに挑戦していくで。みんなの「信仰」が力になるから、よろしくな！ 挨拶は「おつこん」。","data":[["誕生日","ひみつ"],["年齢","不詳"],["初配信日","準備中"],["所属","個人勢"],["話し方","関西弁"],["イラストレーター","@Zoey_Yusi"],["ファンマーク","😇🤍🦊"],["挨拶","おつこん"],["総合タグ","#白狐の信仰"],["ファンアート","#白狐の恵みアート"]]},"video":""}</script>
 
 <script>
 /* ====== ここを書き換えて使ってください ====== */
@@ -455,31 +457,15 @@ const X_ID = "kamibyakko06";
 const YOUTUBE_CHANNEL = "https://qr.paps.jp/l62Ur";
 const MARSHMALLOW = "https://x.gd/aLkDU";
 const STORE = "https://roll.tokyo/e/kamibyakko06";
-const YOUTUBE_VIDEO_ID = "";   // おすすめ動画のID（watch?v=●●● の ●●●）
-
-/* トップのバナー（g は背景色） */
-const TOPICS = [
-  {lbl:"DEBUT", title:"神白狐<br>デビュー準備中！", text:"人間世界に舞い降りた白狐、まもなく始動。", url:`https://x.com/${X_ID}`, g:"linear-gradient(120deg,#5ec4ff,#1e9bff)", big:"COMING SOON", pic:true},
-  {lbl:"GOODS", title:"ときぱれ！VOL.25<br>限定オンラインくじ", text:"10/30(金)19:00〜11/7(土)23:59　大正ロマンがテーマ！", url:STORE, g:"linear-gradient(120deg,#063f5c,#1e6fb0)", big:"GOODS"},
-  {lbl:"THANKS", title:"フォロワー<br>1600人ありがとう！", text:"これからもよろしくだよ。", url:`https://x.com/${X_ID}`, g:"linear-gradient(120deg,#7fd3ff,#3aa6ff)", big:"1600", pic:true}
-];
-
-const DATA = [
-  ["誕生日", "ひみつ"],
-  ["年齢", "不詳"],
-  ["初配信日", "準備中"],
-  ["所属", "個人勢"],
-  ["話し方", "関西弁"],
-  ["イラストレーター", `<a href="https://x.com/Zoey_Yusi" target="_blank" rel="noopener">@Zoey_Yusi</a>`],
-  ["ファンマーク", "😇🤍🦊"],
-  ["挨拶", "おつこん"],
-  ["総合タグ", `<a href="https://x.com/hashtag/白狐の信仰" target="_blank" rel="noopener">#白狐の信仰</a>`],
-  ["ファンアート", `<a href="https://x.com/hashtag/白狐の恵みアート" target="_blank" rel="noopener">#白狐の恵みアート</a>`]
-];
-/* お知らせ・配信スケジュール・画像は admin.html（管理画面）から追加・編集できます */
+/* バナー・プロフィール・おすすめ動画・お知らせ・配信スケジュール・画像は admin.html（管理画面）から編集できます。
+   上の site-data は data.json が読めなかったときの初期値です */
 
 /* ====== ここから下は触らなくてOK ====== */
-let SITE = JSON.parse(document.getElementById("site-data").textContent);
+const DEFAULTS = JSON.parse(document.getElementById("site-data").textContent);
+const withDefaults = d=>({...DEFAULTS, ...d});
+const PREVIEW = new URLSearchParams(location.search).has("preview");
+let SITE = DEFAULTS;
+if (PREVIEW) { try { SITE = withDefaults(JSON.parse(localStorage.getItem("kb-preview"))); } catch {} }
 const blank = u=>/^http/.test(u) ? ' target="_blank" rel="noopener"' : "";
 const esc = s=>String(s ?? "").replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const safeUrl = u=>/^(https?:\/\/|#|\/_blob\/|images\/)/.test(u||"") ? u : "";
@@ -492,16 +478,25 @@ menuBtn.onclick = ()=>document.body.classList.toggle("menu-open");
 gnav.querySelectorAll("a").forEach(a=>a.onclick = ()=>document.body.classList.remove("menu-open"));
 
 /* TOPICS スライダー */
-track.innerHTML = TOPICS.map(t=>`<div class="slide"><a href="${t.url}"${blank(t.url)} style="--g:${t.g}"><div class="bg"></div>
-  <span class="big">${t.big}</span>${t.pic ? avatarTag.replace('class="avatar"','class="avatar pic"') : ""}
-  <div class="txt"><span class="lbl">${t.lbl}</span><h3>${t.title}</h3><p>${t.text}</p></div></a></div>`).join("");
-dots.innerHTML = TOPICS.map((_,i)=>`<button aria-label="${i+1}枚目"></button>`).join("");
-let cur = 0, timer;
-function go(i){ cur = (i + TOPICS.length) % TOPICS.length; track.style.transform = `translateX(-${cur*100}%)`;
+const TOPIC_G = {sky:"linear-gradient(120deg,#5ec4ff,#1e9bff)", navy:"linear-gradient(120deg,#063f5c,#1e6fb0)", light:"linear-gradient(120deg,#7fd3ff,#3aa6ff)"};
+const br = s=>esc(s).replace(/\n/g, "<br>");
+let cur = 0, timer, topicCount = 0;
+function go(i){ if (!topicCount) return; cur = (i + topicCount) % topicCount; track.style.transform = `translateX(-${cur*100}%)`;
   [...dots.children].forEach((d,j)=>d.classList.toggle("on", j===cur)); clearInterval(timer); timer = setInterval(()=>go(cur+1), 5000); }
+function renderTopics(site){
+  const list = site.topics || [];
+  topicCount = list.length;
+  document.querySelector(".topics").hidden = !list.length;
+  track.innerHTML = list.map(t=>{ const u = safeUrl(t.url) || "#top";
+    const bg = t.img ? `background:linear-gradient(90deg,rgba(6,63,92,.75),rgba(6,63,92,.1)),url('${esc(safeUrl(t.img))}') center/cover` : `--g:${TOPIC_G[t.color]||TOPIC_G.sky}`;
+    return `<div class="slide"><a href="${esc(u)}"${blank(u)}><div class="bg" style="${bg}"></div>
+    ${t.big ? `<span class="big">${esc(t.big)}</span>` : ""}${t.pic ? avatarTag.replace('class="avatar"','class="avatar pic"') : ""}
+    <div class="txt">${t.lbl ? `<span class="lbl">${esc(t.lbl)}</span>` : ""}<h3>${br(t.title)}</h3><p>${esc(t.text)}</p></div></a></div>`; }).join("");
+  dots.innerHTML = list.map((_,i)=>`<button aria-label="${i+1}枚目"></button>`).join("");
+  [...dots.children].forEach((d,i)=>d.onclick = ()=>go(i));
+  go(Math.min(cur, Math.max(0, topicCount-1)));
+}
 prev.onclick = ()=>go(cur-1); next.onclick = ()=>go(cur+1);
-[...dots.children].forEach((d,i)=>d.onclick = ()=>go(i));
-go(0);
 
 /* リンク */
 pYT.href = ytAll.href = ytAll2.href = YOUTUBE_CHANNEL;
@@ -517,15 +512,23 @@ snsIcons.innerHTML = [
 tagList.innerHTML = [["総合タグ","#白狐の信仰"],["ファンアートタグ","#白狐の恵みアート"]]
   .map(([k,t])=>`<a href="https://x.com/hashtag/${encodeURIComponent(t.slice(1))}" target="_blank" rel="noopener"><span>${k}</span><b>${t}</b></a>`).join("");
 
-/* プロフィール */
-dataList.innerHTML = `<h3>DATA</h3>` + DATA.map(([k,v])=>`<div><dt>${k}</dt><dd>${v}</dd></div>`).join("");
+/* プロフィール（@ID・#タグ・URL は自動でリンクに） */
+const linkify = s=>esc(s).replace(/(https?:\/\/[^\s<]+|@[A-Za-z0-9_]{1,15}|#[^\s#<]+)/g, m=>{
+  const u = m.startsWith("@") ? `https://x.com/${m.slice(1)}` : m.startsWith("#") ? `https://x.com/hashtag/${encodeURIComponent(m.slice(1))}` : m;
+  return `<a href="${u}" target="_blank" rel="noopener">${m}</a>`; });
+function renderProfile(site){
+  const p = site.profile || {};
+  pQuote.textContent = p.quote ? `「${p.quote}」` : "";
+  pDesc.innerHTML = br(p.desc || "");
+  dataList.innerHTML = `<h3>DATA</h3>` + (p.data || []).map(([k,v])=>`<div><dt>${esc(k)}</dt><dd>${linkify(v)}</dd></div>`).join("");
+}
 
-/* おすすめ動画 */
-if (YOUTUBE_VIDEO_ID) {
-  movie.outerHTML = `<div class="movie"><iframe src="https://www.youtube-nocookie.com/embed/${YOUTUBE_VIDEO_ID}" title="おすすめ動画" allow="accelerometer; autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>`;
-} else {
-  movie.href = YOUTUBE_CHANNEL;
-  movie.innerHTML = `<div class="ph"><div><div class="play"></div>WATCH ON YOUTUBE</div></div>`;
+/* おすすめ動画（YouTube の URL か動画ID） */
+const ytId = u=>(String(u||"").match(/(?:v=|youtu\.be\/|shorts\/|embed\/|live\/)([\w-]{11})/) || String(u||"").match(/^([\w-]{11})$/) || [])[1] || "";
+function renderVideo(site){
+  const id = ytId(site.video), box = document.getElementById("movie");
+  if (id) box.outerHTML = `<div class="movie" id="movie"><iframe src="https://www.youtube-nocookie.com/embed/${id}" title="おすすめ動画" allow="accelerometer; autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>`;
+  else box.outerHTML = `<a class="movie" id="movie" href="${YOUTUBE_CHANNEL}" target="_blank" rel="noopener"><div class="ph"><div><div class="play"></div>WATCH ON YOUTUBE</div></div></a>`;
 }
 
 /* 画像（読み込めなければ「白」の文字に） */
@@ -599,13 +602,18 @@ function renderNews(site){
 }
 
 function renderAll(site){
-  renderSched(site); renderNews(site);
+  renderTopics(site); renderProfile(site); renderVideo(site); renderSched(site); renderNews(site);
   loadAvatars(document, site.avatar);
   banner.style.backgroundImage = site.banner ? `url("${site.banner}")` : "";
 }
 renderAll(SITE);
-/* 最新のお知らせ・配信予定は data.json から読む（管理画面で保存した内容） */
-fetch("data.json?t=" + Date.now()).then(r=>r.ok ? r.json() : null).then(d=>{ if (d) { SITE = d; renderAll(SITE); } }).catch(()=>{});
+if (PREVIEW) {
+  /* 管理画面のプレビュー：保存前の内容を表示 */
+  document.body.insertAdjacentHTML("beforeend", `<div class="pv-mode">管理画面のプレビュー表示中（まだ保存されていません）<a href="./">通常表示に戻る</a></div>`);
+} else {
+  /* 最新の内容は data.json から読む（管理画面で保存した内容） */
+  fetch("data.json?t=" + Date.now()).then(r=>r.ok ? r.json() : null).then(d=>{ if (d) { SITE = withDefaults(d); renderAll(SITE); } }).catch(()=>{});
+}
 
 /* メニューの現在地 */
 const navLinks = [...gnav.querySelectorAll("a")];
