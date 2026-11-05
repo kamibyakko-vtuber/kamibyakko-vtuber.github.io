@@ -3,8 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>神白狐サイト 確認用プレビュー</title>
-<meta name="robots" content="noindex,nofollow">
+<title>神 白狐（かみびゃっこ） | Official Site</title>
 <meta name="description" content="個人勢Vtuber 神白狐（かみびゃっこ）の公式サイト。プロフィール、配信スケジュール、おすすめ動画、公式SNS、お知らせ。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -198,6 +197,7 @@ header{position:fixed;top:0;left:0;right:0;z-index:60;height:58px;display:flex;a
 .ncard .th span{position:relative;font:900 clamp(26px,3vw,38px) var(--en);letter-spacing:.08em;color:#fff;text-shadow:0 3px 0 rgba(6,63,92,.3)}
 .ncard .bd{padding:14px 16px 18px}
 .ncard time{font:800 15px var(--en)}
+.ncard .pin{font:800 10px var(--en);letter-spacing:.12em;color:#fff;background:var(--red);padding:1px 8px;border-radius:999px;margin-left:8px}
 .ncard .cat{font:800 10px var(--en);letter-spacing:.12em;color:var(--blue);margin-left:10px}
 .ncard p{margin-top:6px;font-weight:700;line-height:1.6}
 
@@ -254,14 +254,8 @@ header{position:fixed;top:0;left:0;right:0;z-index:60;height:58px;display:flex;a
 .adm-box button.big{padding:13px 28px;font-size:15px}
 @media(max-width:600px){.row2,.row3{grid-template-columns:1fr}}
 
-/* 確認用プレビューの表示 */
-.pv-bar{position:fixed;left:0;right:0;bottom:0;z-index:250;background:#ffd84d;color:#3a2c00;font-size:13px;font-weight:700;line-height:1.5;
-  padding:10px max(16px, env(safe-area-inset-right, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap;text-align:center}
-.pv-bar b{background:#3a2c00;color:#ffd84d;padding:2px 10px;border-radius:999px;font-size:11px;letter-spacing:.1em}
-.pv-sp{margin-top:14px;display:inline-block;background:#ffd84d;color:#3a2c00;font:700 12px var(--jp);padding:4px 14px;border-radius:999px;animation:fade 1s .8s both}
 .pv-mode{position:fixed;top:66px;left:50%;translate:-50% 0;z-index:255;background:#e00000;color:#fff;font-weight:700;font-size:13px;padding:8px 18px;border-radius:999px;box-shadow:0 6px 18px rgba(0,0,0,.25);display:flex;gap:14px;align-items:center;max-width:calc(100vw - 32px);flex-wrap:wrap;justify-content:center}
 .pv-mode a{color:#fff;text-decoration:underline}
-footer{padding-bottom:90px!important}
 footer{background:var(--navy) var(--tri);color:#fff;padding:46px 5vw 34px;text-align:center}
 footer .flogo{display:inline-flex;align-items:center;gap:10px;font:900 18px var(--jpb);letter-spacing:.14em}
 footer .flogo .avatar{width:40px;height:40px;border:2px solid #fff}
@@ -318,7 +312,6 @@ dialog[open] .dl-box{animation:dlIn .3s ease-out}
 </style>
 </head>
 <body class="lock">
-<div class="pv-bar" role="note"><b>確認用プレビュー</b>公開前のデザイン確認用ページです。神白狐さんご本人の公式サイトではありません。</div>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-x" viewBox="0 0 24 24"><path fill="currentColor" d="M18.2 2.3h3.4l-7.4 8.4 8.7 11.5h-6.8l-5.3-7-6.1 7H1.3l7.9-9L.9 2.3h7l4.8 6.4zm-1.2 17.9h1.9L7.1 4.2H5.1z"/></symbol>
@@ -332,12 +325,11 @@ dialog[open] .dl-box{animation:dlIn .3s ease-out}
     <img class="avatar" alt="">
     <div class="nm">神 白狐</div>
     <div class="en">Kami Byakko</div>
-    <div class="pv-sp">確認用プレビュー（非公式）</div>
   </div>
 </div>
 
 <header>
-  <a class="logo" href="#top"><img class="avatar" alt="">神 白狐<small>PREVIEW</small></a>
+  <a class="logo" href="#top"><img class="avatar" alt="">神 白狐<small>OFFICIAL</small></a>
   <nav class="gnav" id="gnav">
     <a href="#top">TOP</a><a href="#profile">PROFILE</a><a href="#schedule">SCHEDULE</a><a href="#videos">VIDEOS</a><a href="#sns">SNS</a><a href="#news">NEWS</a>
   </nav>
@@ -445,7 +437,7 @@ dialog[open] .dl-box{animation:dlIn .3s ease-out}
 <footer>
   <a class="flogo" href="#top"><img class="avatar" alt="">神 白狐</a>
   <nav><a href="#top">TOP</a><a href="#profile">PROFILE</a><a href="#schedule">SCHEDULE</a><a href="#videos">VIDEOS</a><a href="#sns">SNS</a><a href="#news">NEWS</a></nav>
-  <small>非公式・確認用プレビュー（公開前）</small>
+  <small>© KAMI BYAKKO</small>
 </footer>
 
 
@@ -477,6 +469,9 @@ const TAG_G = {INFO:"linear-gradient(140deg,#5ec4ff,#1e9bff)", EVENT:"linear-gra
 menuBtn.onclick = ()=>document.body.classList.toggle("menu-open");
 gnav.querySelectorAll("a").forEach(a=>a.onclick = ()=>document.body.classList.remove("menu-open"));
 
+/* 非表示・予約公開・掲載終了の判定（管理画面で設定） */
+const visible = x=>{ const now = new Date(); return !x.hidden && (!x.from || new Date(x.from) <= now) && (!x.until || new Date(x.until) > now); };
+
 /* TOPICS スライダー */
 const TOPIC_G = {sky:"linear-gradient(120deg,#5ec4ff,#1e9bff)", navy:"linear-gradient(120deg,#063f5c,#1e6fb0)", light:"linear-gradient(120deg,#7fd3ff,#3aa6ff)"};
 const br = s=>esc(s).replace(/\n/g, "<br>");
@@ -484,7 +479,7 @@ let cur = 0, timer, topicCount = 0;
 function go(i){ if (!topicCount) return; cur = (i + topicCount) % topicCount; track.style.transform = `translateX(-${cur*100}%)`;
   [...dots.children].forEach((d,j)=>d.classList.toggle("on", j===cur)); clearInterval(timer); timer = setInterval(()=>go(cur+1), 5000); }
 function renderTopics(site){
-  const list = site.topics || [];
+  const list = (site.topics || []).filter(visible);
   topicCount = list.length;
   document.querySelector(".topics").hidden = !list.length;
   track.innerHTML = list.map(t=>{ const u = safeUrl(t.url) || "#top";
@@ -546,7 +541,7 @@ let sched = [];
 function buildSched(site){
   const now = new Date(), mon = new Date(now); mon.setHours(0,0,0,0); mon.setDate(now.getDate() - ((now.getDay()+6)%7));
   let nextFound = false;
-  return site.schedule.map(s=>{
+  return site.schedule.filter(s=>!s.hidden).map(s=>{
     const st = new Date(`${s.date}T${s.time||"00:00"}`), en = new Date(st.getTime() + (s.mins||60)*60e3);
     return {...s, st, en};
   }).filter(s=>s.en >= mon).sort((a,b)=>a.st-b.st).map(s=>{
@@ -594,10 +589,10 @@ dlg.onclick = e=>{ if (e.target === dlg || e.target.closest(".dl-close")) dlg.cl
 /* ニュース（新しい順） */
 const dotDate = d=>d.replaceAll("-",".");
 function renderNews(site){
-  const list = [...site.news].sort((a,b)=>b.date.localeCompare(a.date));
+  const list = site.news.filter(visible).sort((a,b)=>(b.pinned?1:0)-(a.pinned?1:0) || b.date.localeCompare(a.date));
   newsList.innerHTML = list.length ? list.map(n=>{ const u = safeUrl(n.url) || "#news";
     return `<a class="ncard" href="${esc(u)}"${blank(u)}><div class="th" style="--g:${TAG_G[n.tag]||TAG_G.INFO}">${thumbHtml(n.thumb, `<span>${esc(n.tag)}</span>`)}</div>
-    <div class="bd"><time>${dotDate(n.date)}</time><span class="cat">${esc(n.tag)}</span><p>${esc(n.text)}</p></div></a>`; }).join("")
+    <div class="bd"><time>${dotDate(n.date)}</time><span class="cat">${esc(n.tag)}</span>${n.pinned ? `<span class="pin">PICK UP</span>` : ""}<p>${esc(n.text)}</p></div></a>`; }).join("")
     : `<p class="empty">お知らせはまだありません。</p>`;
 }
 
