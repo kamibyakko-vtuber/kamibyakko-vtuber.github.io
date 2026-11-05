@@ -150,8 +150,8 @@ button.link{border:0;background:none;color:var(--mute);font-size:14px;font-weigh
     <h2>GitHub との接続 <span class="st" id="connSt">未接続</span><button class="link ctoggle" id="connToggle">接続の設定</button></h2>
     <div class="cbody" style="display:grid;gap:12px">
       <div class="row2">
-        <label>GitHub ユーザー名<input id="cOwner" autocomplete="off" value="jingkoutaren6-dot"></label>
-        <label>リポジトリ名<input id="cRepo" autocomplete="off" value="kamibyakko-site"></label>
+        <label>GitHub のユーザー名か組織名<input id="cOwner" autocomplete="off" value="kamibyakko-vtuber"></label>
+        <label>リポジトリ名<input id="cRepo" autocomplete="off" value="kamibyakko-vtuber.github.io"></label>
       </div>
       <div class="row2">
         <label>GitHub の鍵（トークン）<input id="cToken" type="password" autocomplete="off" placeholder="ghp_ から始まる文字列を貼り付け"></label>
@@ -336,7 +336,8 @@ const esc = s=>String(s ?? "").replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;","
 const dotDate = d=>d.replaceAll("-",".");
 const uid = ()=>Math.random().toString(36).slice(2,9);
 const JW = ["日","月","火","水","木","金","土"];
-const pagesUrl = ()=>`https://${cfg.owner.toLowerCase()}.github.io/${cfg.repo}/`;
+const siteUrl = (o, r)=>r.toLowerCase() === `${o.toLowerCase()}.github.io` ? `https://${o.toLowerCase()}.github.io/` : `https://${o.toLowerCase()}.github.io/${r}/`;
+const pagesUrl = ()=>siteUrl(cfg.owner, cfg.repo);
 const ls = {
   get(k){ try { return JSON.parse(localStorage.getItem(k) || "null"); } catch { return null; } },
   set(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch {} },
@@ -383,7 +384,10 @@ async function connect(){
   setConn("確認中…", false);
   try {
     const r = await ghRaw("/user"), me = await r.json();
-    if (me.login.toLowerCase() !== cfg.owner.toLowerCase()) return setConn(`この鍵は ${me.login} さんのものです。ユーザー名を確認してください`, false);
+    if (me.login.toLowerCase() !== cfg.owner.toLowerCase()) {
+      const repo = await gh(repoPath("")).catch(()=>null);
+      if (!repo?.permissions?.push) return setConn(`この鍵（${me.login} さん）では ${cfg.owner}/${cfg.repo} に書き込めません。名前を確認してください`, false);
+    }
     cfg.exp = $("cExp").value || store.get().exp || "";
     store.set(cfg);
     setConn(`接続中：${cfg.owner} / ${cfg.repo}`, true);
@@ -450,12 +454,28 @@ async function setup(){
     catch (e) { if (e.status !== 404) throw e;
       await gh("/user/repos", {method:"POST", body:JSON.stringify({name:cfg.repo, description:"神白狐（かみびゃっこ）公式サイト", homepage:pagesUrl(), private:false, has_issues:false, has_wiki:false})});
       log("リポジトリを作りました"); }
+    const files = [];
     for (const name of SITE_FILES) {
       if (name === "data.json" && dataSha) { log("data.json：今のデータを残しました"); continue; }
       const body = name === "data.json" ? JSON.stringify(draft, null, 1) : await fetch(name + "?t=" + Date.now()).then(r=>{ if (!r.ok) throw new Error(name + " が読めません"); return r.text(); });
-      const res = await putFile(name, b64FromText(body), `サイト更新：${name}`);
-      if (name === "data.json") dataSha = res.content.sha;
-      log(`${name}：アップロードしました`);
+      files.push([name, body]);
+    }
+    /* 全部のファイルを1回の保存（コミット）で送る。空のリポジトリだけは1つずつ */
+    let head = null;
+    try { head = (await gh(repoPath("/git/ref/heads/main"))).object.sha; } catch (e) { if (e.status !== 404 && e.status !== 409) throw e; }
+    if (head) {
+      const base = (await gh(repoPath(`/git/commits/${head}`))).tree.sha;
+      const tree = await gh(repoPath("/git/trees"), {method:"POST", body:JSON.stringify({base_tree:base, tree:files.map(([path, content])=>({path, mode:"100644", type:"blob", content}))})});
+      const commit = await gh(repoPath("/git/commits"), {method:"POST", body:JSON.stringify({message:"サイトのファイルを更新", tree:tree.sha, parents:[head]})});
+      await gh(repoPath("/git/refs/heads/main"), {method:"PATCH", body:JSON.stringify({sha:commit.sha})});
+      if (files.some(([n])=>n === "data.json")) dataSha = (await getFile("data.json")).sha;
+      log(`${files.map(([n])=>n).join("・")}：まとめてアップロードしました`);
+    } else {
+      for (const [name, body] of files) {
+        const res = await putFile(name, b64FromText(body), `サイト更新：${name}`);
+        if (name === "data.json") dataSha = res.content.sha;
+        log(`${name}：アップロードしました`);
+      }
     }
     try { await gh(repoPath("/pages"), {method:"POST", body:JSON.stringify({source:{branch:"main", path:"/"}})}); log("GitHub Pages を有効にしました"); }
     catch (e) { if (e.status === 409) log("GitHub Pages：もともと有効です"); else throw e; }
@@ -757,7 +777,7 @@ if (saved.owner) $("cOwner").value = saved.owner;
 if (saved.repo) $("cRepo").value = saved.repo;
 if (saved.exp) $("cExp").value = saved.exp;
 $("cExp").onchange = ()=>{ const s = store.get(); if (s.token) { s.exp = $("cExp").value; store.set(s); cfg.exp = s.exp; showExpiry(s.exp ? s.exp + "T23:59:59+09:00" : ""); } };
-$("siteLink").href = `https://${$("cOwner").value.toLowerCase()}.github.io/${$("cRepo").value}/`;
+$("siteLink").href = siteUrl($("cOwner").value, $("cRepo").value);
 if (saved.token) connect();
 </script>
 </body>
